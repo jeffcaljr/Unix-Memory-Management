@@ -1,3 +1,15 @@
+PROJECT SPECIFICATION:
+In this project we will be designing and implement a part of the memory management module for
+our Operating System Simulator “oss” however you do not need to used “oss” implemented in previous programming assignments, moreover this time you need to perform some experiments
+using your new “oss” implementation. Firstly you need to check the number of page faults for implemented page replacement algorithm and compare it with the optimal policy. You can
+implement LRU, FIFO or CLOCK page replacement algorithm, additionally assume a fixed
+frame allocation (fixed resident set size) – 5 frames by default. Experiments should be performed for 10 different randomly generated processes, each process consists of 8 pages. The size of the
+main memory is sufficient to save the 50 pages. The page address stream formed by executing of each process should be generate randomly, no more than 15 page “requests”.
+Then using the stream of page “request” for each process you need to check the number of page faults for optimal policy. Finally all of received during experiments results should be presented
+in the report, together with yours conclusions.
+
+
+NOTES:
 The program generated random page request streams(length 15) for 10 processes and used both FIFO and Optimal Policy algorithms for each stream. 
 
 Two seperate arrays of size 50 are used to simulate main memory; one for the FIFO algorithm and the other for the optimal replacement policy

@@ -1,0 +1,530 @@
+Author: Jeffery Calhoun
+Class: CS 4760 Section o2
+
+The program generated random page request streams(length 15) for 10 processes and used both FIFO and Optimal Policy algorithms for each stream. FIFO was always worse in performance (and at it's best, it was only equally efficient as the Optimal Policy replacement algorithm) according to the results of the test. We can truly see the difference when increasing the page request stream size; FIFO had roughly twice as many page faults as the optimal policy algorithm. However, evaluating the optimal was only possible because we knew the entire sequence of page requests due to simulation - in the real world, it is very difficult or impossible to know all future page requests to implement the optimal policy algorithm. Below are the full results of one simulation:
+
+=========================================================================================================
+
+Process 0 request stream: [3 6 7 4 8 4 3 6 2 3 2 8 6 5 6 ]
+
+=====	Process 0 First-In First-Out Policy Swap Trace =====
+3693: swapping -1 for 3
+3693 buffer: [3 -1 -1 -1 -1 ]
+3693: swapping -1 for 6
+3693 buffer: [3 6 -1 -1 -1 ]
+3693: swapping -1 for 7
+3693 buffer: [3 6 7 -1 -1 ]
+3693: swapping -1 for 4
+3693 buffer: [3 6 7 4 -1 ]
+3693: swapping -1 for 8
+3693 buffer: [3 6 7 4 8 ]
+3693:	Fault!
+3693: swapping 3 for 2
+3693 buffer: [2 6 7 4 8 ]
+3693:	Fault!
+3693: swapping 6 for 3
+3693 buffer: [2 3 7 4 8 ]
+3693:	Fault!
+3693: swapping 7 for 6
+3693 buffer: [2 3 6 4 8 ]
+3693:	Fault!
+3693: swapping 4 for 5
+3693 buffer: [2 3 6 5 8 ]
+
+=====	Process 0 Optimal Policy Swap Trace =====
+3693: swapping -1 for 3
+3693 buffer: [3 -1 -1 -1 -1 ]
+3693: swapping -1 for 6
+3693 buffer: [3 6 -1 -1 -1 ]
+3693: swapping -1 for 7
+3693 buffer: [3 6 7 -1 -1 ]
+3693: swapping -1 for 4
+3693 buffer: [3 6 7 4 -1 ]
+3693: swapping -1 for 8
+3693 buffer: [3 6 7 4 8 ]
+3693:	Fault!
+3693: swapping 7 for 2
+3693 buffer: [3 6 2 4 8 ]
+3693:	Fault!
+3693: swapping 3 for 5
+3693 buffer: [5 6 2 4 8 ]
+
+FIFO Final Buffer: [2 3 6 5 8 ]
+
+Optimal Policy Final Buffer [5 6 2 4 8 ]
+===============================================
+Process 0 results: 
+FIFO Page Faults: 4
+Optimal Policy Page Faults: 2
+===============================================
+Process 1 request stream: [10 15 16 14 11 16 10 15 12 10 9 15 10 9 12 ]
+
+=====	Process 1 First-In First-Out Policy Swap Trace =====
+3694: swapping -1 for 10
+3694 buffer: [10 -1 -1 -1 -1 ]
+3694: swapping -1 for 15
+3694 buffer: [10 15 -1 -1 -1 ]
+3694: swapping -1 for 16
+3694 buffer: [10 15 16 -1 -1 ]
+3694: swapping -1 for 14
+3694 buffer: [10 15 16 14 -1 ]
+3694: swapping -1 for 11
+3694 buffer: [10 15 16 14 11 ]
+3694:	Fault!
+3694: swapping 10 for 12
+3694 buffer: [12 15 16 14 11 ]
+3694:	Fault!
+3694: swapping 15 for 10
+3694 buffer: [12 10 16 14 11 ]
+3694:	Fault!
+3694: swapping 16 for 9
+3694 buffer: [12 10 9 14 11 ]
+3694:	Fault!
+3694: swapping 14 for 15
+3694 buffer: [12 10 9 15 11 ]
+
+=====	Process 1 Optimal Policy Swap Trace =====
+3694: swapping -1 for 10
+3694 buffer: [10 -1 -1 -1 -1 ]
+3694: swapping -1 for 15
+3694 buffer: [10 15 -1 -1 -1 ]
+3694: swapping -1 for 16
+3694 buffer: [10 15 16 -1 -1 ]
+3694: swapping -1 for 14
+3694 buffer: [10 15 16 14 -1 ]
+3694: swapping -1 for 11
+3694 buffer: [10 15 16 14 11 ]
+3694:	Fault!
+3694: swapping 16 for 12
+3694 buffer: [10 15 12 14 11 ]
+3694:	Fault!
+3694: swapping 14 for 9
+3694 buffer: [10 15 12 9 11 ]
+
+FIFO Final Buffer: [12 10 9 15 11 ]
+
+Optimal Policy Final Buffer [10 15 12 9 11 ]
+===============================================
+Process 1 results: 
+FIFO Page Faults: 4
+Optimal Policy Page Faults: 2
+===============================================
+Process 2 request stream: [17 24 18 17 21 17 24 17 18 19 22 20 21 24 23 ]
+
+=====	Process 2 First-In First-Out Policy Swap Trace =====
+3695: swapping -1 for 17
+3695 buffer: [17 -1 -1 -1 -1 ]
+3695: swapping -1 for 24
+3695 buffer: [17 24 -1 -1 -1 ]
+3695: swapping -1 for 18
+3695 buffer: [17 24 18 -1 -1 ]
+3695: swapping -1 for 21
+3695 buffer: [17 24 18 21 -1 ]
+3695: swapping -1 for 19
+3695 buffer: [17 24 18 21 19 ]
+3695:	Fault!
+3695: swapping 17 for 22
+3695 buffer: [22 24 18 21 19 ]
+3695:	Fault!
+3695: swapping 24 for 20
+3695 buffer: [22 20 18 21 19 ]
+3695:	Fault!
+3695: swapping 18 for 24
+3695 buffer: [22 20 24 21 19 ]
+3695:	Fault!
+3695: swapping 21 for 23
+3695 buffer: [22 20 24 23 19 ]
+
+=====	Process 2 Optimal Policy Swap Trace =====
+3695: swapping -1 for 17
+3695 buffer: [17 -1 -1 -1 -1 ]
+3695: swapping -1 for 24
+3695 buffer: [17 24 -1 -1 -1 ]
+3695: swapping -1 for 18
+3695 buffer: [17 24 18 -1 -1 ]
+3695: swapping -1 for 21
+3695 buffer: [17 24 18 21 -1 ]
+3695: swapping -1 for 19
+3695 buffer: [17 24 18 21 19 ]
+3695:	Fault!
+3695: swapping 17 for 22
+3695 buffer: [22 24 18 21 19 ]
+3695:	Fault!
+3695: swapping 22 for 20
+3695 buffer: [20 24 18 21 19 ]
+3695:	Fault!
+3695: swapping 20 for 23
+3695 buffer: [23 24 18 21 19 ]
+
+FIFO Final Buffer: [22 20 24 23 19 ]
+
+Optimal Policy Final Buffer [23 24 18 21 19 ]
+===============================================
+Process 2 results: 
+FIFO Page Faults: 4
+Optimal Policy Page Faults: 3
+===============================================
+Process 3 request stream: [32 25 28 27 32 25 32 30 32 27 28 32 30 31 27 ]
+
+=====	Process 3 First-In First-Out Policy Swap Trace =====
+3696: swapping -1 for 32
+3696 buffer: [32 -1 -1 -1 -1 ]
+3696: swapping -1 for 25
+3696 buffer: [32 25 -1 -1 -1 ]
+3696: swapping -1 for 28
+3696 buffer: [32 25 28 -1 -1 ]
+3696: swapping -1 for 27
+3696 buffer: [32 25 28 27 -1 ]
+3696: swapping -1 for 30
+3696 buffer: [32 25 28 27 30 ]
+3696:	Fault!
+3696: swapping 32 for 31
+3696 buffer: [31 25 28 27 30 ]
+
+=====	Process 3 Optimal Policy Swap Trace =====
+3696: swapping -1 for 32
+3696 buffer: [32 -1 -1 -1 -1 ]
+3696: swapping -1 for 25
+3696 buffer: [32 25 -1 -1 -1 ]
+3696: swapping -1 for 28
+3696 buffer: [32 25 28 -1 -1 ]
+3696: swapping -1 for 27
+3696 buffer: [32 25 28 27 -1 ]
+3696: swapping -1 for 30
+3696 buffer: [32 25 28 27 30 ]
+3696:	Fault!
+3696: swapping 32 for 31
+3696 buffer: [31 25 28 27 30 ]
+
+FIFO Final Buffer: [31 25 28 27 30 ]
+
+Optimal Policy Final Buffer [31 25 28 27 30 ]
+===============================================
+Process 3 results: 
+FIFO Page Faults: 1
+Optimal Policy Page Faults: 1
+===============================================
+Process 4 request stream: [39 34 38 34 33 40 38 34 38 35 33 37 40 34 35 ]
+
+=====	Process 4 First-In First-Out Policy Swap Trace =====
+3697: swapping -1 for 39
+3697 buffer: [39 -1 -1 -1 -1 ]
+3697: swapping -1 for 34
+3697 buffer: [39 34 -1 -1 -1 ]
+3697: swapping -1 for 38
+3697 buffer: [39 34 38 -1 -1 ]
+3697: swapping -1 for 33
+3697 buffer: [39 34 38 33 -1 ]
+3697: swapping -1 for 40
+3697 buffer: [39 34 38 33 40 ]
+3697:	Fault!
+3697: swapping 39 for 35
+3697 buffer: [35 34 38 33 40 ]
+3697:	Fault!
+3697: swapping 34 for 37
+3697 buffer: [35 37 38 33 40 ]
+3697:	Fault!
+3697: swapping 38 for 34
+3697 buffer: [35 37 34 33 40 ]
+
+=====	Process 4 Optimal Policy Swap Trace =====
+3697: swapping -1 for 39
+3697 buffer: [39 -1 -1 -1 -1 ]
+3697: swapping -1 for 34
+3697 buffer: [39 34 -1 -1 -1 ]
+3697: swapping -1 for 38
+3697 buffer: [39 34 38 -1 -1 ]
+3697: swapping -1 for 33
+3697 buffer: [39 34 38 33 -1 ]
+3697: swapping -1 for 40
+3697 buffer: [39 34 38 33 40 ]
+3697:	Fault!
+3697: swapping 39 for 35
+3697 buffer: [35 34 38 33 40 ]
+3697:	Fault!
+3697: swapping 38 for 37
+3697 buffer: [35 34 37 33 40 ]
+
+FIFO Final Buffer: [35 37 34 33 40 ]
+
+Optimal Policy Final Buffer [35 34 37 33 40 ]
+===============================================
+Process 4 results: 
+FIFO Page Faults: 3
+Optimal Policy Page Faults: 2
+===============================================
+Process 5 request stream: [46 44 47 48 45 41 48 45 44 47 42 45 43 44 43 ]
+
+=====	Process 5 First-In First-Out Policy Swap Trace =====
+3698: swapping -1 for 46
+3698 buffer: [46 -1 -1 -1 -1 ]
+3698: swapping -1 for 44
+3698 buffer: [46 44 -1 -1 -1 ]
+3698: swapping -1 for 47
+3698 buffer: [46 44 47 -1 -1 ]
+3698: swapping -1 for 48
+3698 buffer: [46 44 47 48 -1 ]
+3698: swapping -1 for 45
+3698 buffer: [46 44 47 48 45 ]
+3698:	Fault!
+3698: swapping 46 for 41
+3698 buffer: [41 44 47 48 45 ]
+3698:	Fault!
+3698: swapping 44 for 42
+3698 buffer: [41 42 47 48 45 ]
+3698:	Fault!
+3698: swapping 47 for 43
+3698 buffer: [41 42 43 48 45 ]
+3698:	Fault!
+3698: swapping 48 for 44
+3698 buffer: [41 42 43 44 45 ]
+
+=====	Process 5 Optimal Policy Swap Trace =====
+3698: swapping -1 for 46
+3698 buffer: [46 -1 -1 -1 -1 ]
+3698: swapping -1 for 44
+3698 buffer: [46 44 -1 -1 -1 ]
+3698: swapping -1 for 47
+3698 buffer: [46 44 47 -1 -1 ]
+3698: swapping -1 for 48
+3698 buffer: [46 44 47 48 -1 ]
+3698: swapping -1 for 45
+3698 buffer: [46 44 47 48 45 ]
+3698:	Fault!
+3698: swapping 46 for 41
+3698 buffer: [41 44 47 48 45 ]
+3698:	Fault!
+3698: swapping 41 for 42
+3698 buffer: [42 44 47 48 45 ]
+3698:	Fault!
+3698: swapping 42 for 43
+3698 buffer: [43 44 47 48 45 ]
+
+FIFO Final Buffer: [41 42 43 44 45 ]
+
+Optimal Policy Final Buffer [43 44 47 48 45 ]
+===============================================
+Process 5 results: 
+FIFO Page Faults: 4
+Optimal Policy Page Faults: 3
+===============================================
+Process 6 request stream: [53 49 51 56 49 52 49 50 52 55 52 56 50 51 52 ]
+
+=====	Process 6 First-In First-Out Policy Swap Trace =====
+3699: swapping -1 for 53
+3699 buffer: [53 -1 -1 -1 -1 ]
+3699: swapping -1 for 49
+3699 buffer: [53 49 -1 -1 -1 ]
+3699: swapping -1 for 51
+3699 buffer: [53 49 51 -1 -1 ]
+3699: swapping -1 for 56
+3699 buffer: [53 49 51 56 -1 ]
+3699: swapping -1 for 52
+3699 buffer: [53 49 51 56 52 ]
+3699:	Fault!
+3699: swapping 53 for 50
+3699 buffer: [50 49 51 56 52 ]
+3699:	Fault!
+3699: swapping 49 for 55
+3699 buffer: [50 55 51 56 52 ]
+
+=====	Process 6 Optimal Policy Swap Trace =====
+3699: swapping -1 for 53
+3699 buffer: [53 -1 -1 -1 -1 ]
+3699: swapping -1 for 49
+3699 buffer: [53 49 -1 -1 -1 ]
+3699: swapping -1 for 51
+3699 buffer: [53 49 51 -1 -1 ]
+3699: swapping -1 for 56
+3699 buffer: [53 49 51 56 -1 ]
+3699: swapping -1 for 52
+3699 buffer: [53 49 51 56 52 ]
+3699:	Fault!
+3699: swapping 53 for 50
+3699 buffer: [50 49 51 56 52 ]
+3699:	Fault!
+3699: swapping 49 for 55
+3699 buffer: [50 55 51 56 52 ]
+
+FIFO Final Buffer: [50 55 51 56 52 ]
+
+Optimal Policy Final Buffer [50 55 51 56 52 ]
+===============================================
+Process 6 results: 
+FIFO Page Faults: 2
+Optimal Policy Page Faults: 2
+===============================================
+Process 7 request stream: [60 62 59 61 58 57 58 61 64 60 58 60 62 59 58 ]
+
+=====	Process 7 First-In First-Out Policy Swap Trace =====
+3700: swapping -1 for 60
+3700 buffer: [60 -1 -1 -1 -1 ]
+3700: swapping -1 for 62
+3700 buffer: [60 62 -1 -1 -1 ]
+3700: swapping -1 for 59
+3700 buffer: [60 62 59 -1 -1 ]
+3700: swapping -1 for 61
+3700 buffer: [60 62 59 61 -1 ]
+3700: swapping -1 for 58
+3700 buffer: [60 62 59 61 58 ]
+3700:	Fault!
+3700: swapping 60 for 57
+3700 buffer: [57 62 59 61 58 ]
+3700:	Fault!
+3700: swapping 62 for 64
+3700 buffer: [57 64 59 61 58 ]
+3700:	Fault!
+3700: swapping 59 for 60
+3700 buffer: [57 64 60 61 58 ]
+3700:	Fault!
+3700: swapping 61 for 62
+3700 buffer: [57 64 60 62 58 ]
+3700:	Fault!
+3700: swapping 58 for 59
+3700 buffer: [57 64 60 62 59 ]
+3700:	Fault!
+3700: swapping 57 for 58
+3700 buffer: [58 64 60 62 59 ]
+
+=====	Process 7 Optimal Policy Swap Trace =====
+3700: swapping -1 for 60
+3700 buffer: [60 -1 -1 -1 -1 ]
+3700: swapping -1 for 62
+3700 buffer: [60 62 -1 -1 -1 ]
+3700: swapping -1 for 59
+3700 buffer: [60 62 59 -1 -1 ]
+3700: swapping -1 for 61
+3700 buffer: [60 62 59 61 -1 ]
+3700: swapping -1 for 58
+3700 buffer: [60 62 59 61 58 ]
+3700:	Fault!
+3700: swapping 59 for 57
+3700 buffer: [60 62 57 61 58 ]
+3700:	Fault!
+3700: swapping 57 for 64
+3700 buffer: [60 62 64 61 58 ]
+3700:	Fault!
+3700: swapping 60 for 59
+3700 buffer: [59 62 64 61 58 ]
+
+FIFO Final Buffer: [58 64 60 62 59 ]
+
+Optimal Policy Final Buffer [59 62 64 61 58 ]
+===============================================
+Process 7 results: 
+FIFO Page Faults: 6
+Optimal Policy Page Faults: 3
+===============================================
+Process 8 request stream: [67 71 69 72 69 66 65 70 69 72 65 72 71 65 67 ]
+
+=====	Process 8 First-In First-Out Policy Swap Trace =====
+3701: swapping -1 for 67
+3701 buffer: [67 -1 -1 -1 -1 ]
+3701: swapping -1 for 71
+3701 buffer: [67 71 -1 -1 -1 ]
+3701: swapping -1 for 69
+3701 buffer: [67 71 69 -1 -1 ]
+3701: swapping -1 for 72
+3701 buffer: [67 71 69 72 -1 ]
+3701: swapping -1 for 66
+3701 buffer: [67 71 69 72 66 ]
+3701:	Fault!
+3701: swapping 67 for 65
+3701 buffer: [65 71 69 72 66 ]
+3701:	Fault!
+3701: swapping 71 for 70
+3701 buffer: [65 70 69 72 66 ]
+3701:	Fault!
+3701: swapping 69 for 71
+3701 buffer: [65 70 71 72 66 ]
+3701:	Fault!
+3701: swapping 72 for 67
+3701 buffer: [65 70 71 67 66 ]
+
+=====	Process 8 Optimal Policy Swap Trace =====
+3701: swapping -1 for 67
+3701 buffer: [67 -1 -1 -1 -1 ]
+3701: swapping -1 for 71
+3701 buffer: [67 71 -1 -1 -1 ]
+3701: swapping -1 for 69
+3701 buffer: [67 71 69 -1 -1 ]
+3701: swapping -1 for 72
+3701 buffer: [67 71 69 72 -1 ]
+3701: swapping -1 for 66
+3701 buffer: [67 71 69 72 66 ]
+3701:	Fault!
+3701: swapping 66 for 65
+3701 buffer: [67 71 69 72 65 ]
+3701:	Fault!
+3701: swapping 67 for 70
+3701 buffer: [70 71 69 72 65 ]
+3701:	Fault!
+3701: swapping 70 for 67
+3701 buffer: [67 71 69 72 65 ]
+
+FIFO Final Buffer: [65 70 71 67 66 ]
+
+Optimal Policy Final Buffer [67 71 69 72 65 ]
+===============================================
+Process 8 results: 
+FIFO Page Faults: 4
+Optimal Policy Page Faults: 3
+===============================================
+Process 9 request stream: [74 80 78 74 79 74 73 80 76 77 74 73 75 79 74 ]
+
+=====	Process 9 First-In First-Out Policy Swap Trace =====
+3702: swapping -1 for 74
+3702 buffer: [74 -1 -1 -1 -1 ]
+3702: swapping -1 for 80
+3702 buffer: [74 80 -1 -1 -1 ]
+3702: swapping -1 for 78
+3702 buffer: [74 80 78 -1 -1 ]
+3702: swapping -1 for 79
+3702 buffer: [74 80 78 79 -1 ]
+3702: swapping -1 for 73
+3702 buffer: [74 80 78 79 73 ]
+3702:	Fault!
+3702: swapping 74 for 76
+3702 buffer: [76 80 78 79 73 ]
+3702:	Fault!
+3702: swapping 80 for 77
+3702 buffer: [76 77 78 79 73 ]
+3702:	Fault!
+3702: swapping 78 for 74
+3702 buffer: [76 77 74 79 73 ]
+3702:	Fault!
+3702: swapping 79 for 75
+3702 buffer: [76 77 74 75 73 ]
+3702:	Fault!
+3702: swapping 73 for 79
+3702 buffer: [76 77 74 75 79 ]
+
+=====	Process 9 Optimal Policy Swap Trace =====
+3702: swapping -1 for 74
+3702 buffer: [74 -1 -1 -1 -1 ]
+3702: swapping -1 for 80
+3702 buffer: [74 80 -1 -1 -1 ]
+3702: swapping -1 for 78
+3702 buffer: [74 80 78 -1 -1 ]
+3702: swapping -1 for 79
+3702 buffer: [74 80 78 79 -1 ]
+3702: swapping -1 for 73
+3702 buffer: [74 80 78 79 73 ]
+3702:	Fault!
+3702: swapping 80 for 76
+3702 buffer: [74 76 78 79 73 ]
+3702:	Fault!
+3702: swapping 76 for 77
+3702 buffer: [74 77 78 79 73 ]
+3702:	Fault!
+3702: swapping 77 for 75
+3702 buffer: [74 75 78 79 73 ]
+
+FIFO Final Buffer: [76 77 74 75 79 ]
+
+Optimal Policy Final Buffer [74 75 78 79 73 ]
+===============================================
+Process 9 results: 
+FIFO Page Faults: 5
+Optimal Policy Page Faults: 3
+===============================================

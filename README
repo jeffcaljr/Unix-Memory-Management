@@ -1,0 +1,9 @@
+The program generated random page request streams(length 15) for 10 processes and used both FIFO and Optimal Policy algorithms for each stream. 
+
+Two seperate arrays of size 50 are used to simulate main memory; one for the FIFO algorithm and the other for the optimal replacement policy
+
+Simulation can be changed by altering constants at the top of oss.cpp
+
+Function Docs are provided above each function definition at the end of oss.cpp
+
+For FIFO algorithm, a static counter variable is used to keep track of which frame in the buffer is to be replaced
